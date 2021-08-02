@@ -30,7 +30,7 @@ const renderDataAsHtml = (data) => {
     cards += createCard(note, noteItem)
   };
   // Inject our string of HTML into our viewNotes.html page
-  document.querySelector('#app').innerHTML = cards;
+  document.querySelector('#listView').innerHTML = cards;
 };
 
 const editNote = (noteId) => {
@@ -70,7 +70,6 @@ const closeEditModal = () => {
 
 const createCard = (note, noteId) => {
   let innerHTML = "";
-  innerHTML += `<div class="column is-one-quarter">`
   innerHTML += `<div class="card">`
   innerHTML += `<header class="card-header">`
   innerHTML += `<p class="card-header-title">`
@@ -86,7 +85,6 @@ const createCard = (note, noteId) => {
   innerHTML +=  `<a id="${noteId}" class="card-footer-item" onclick="editNote(this.id)">Edit</a>`
   innerHTML +=  `<a id="${noteId}" href="#" class="card-footer-item" onclick="deleteNote(this.id)">Delete</a>`
   innerHTML +=  `</footer>`
-  innerHTML += `</div>`
   innerHTML += `</div>`
 
   return innerHTML;
