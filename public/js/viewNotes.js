@@ -86,6 +86,8 @@ const saveCreatedNote = () => {
   })
   // 3. Clear the form so that we can write a new note
   .then(() => {
+      noteTitle.value = "";
+      noteText.value = "";
       closeCreateModal();
   });
 }
