@@ -16,7 +16,7 @@ const signIn = () => {
         displayName: user.displayName,
     })
     .then(() => {
-        window.location = 'writeNote.html';
+        window.location = 'main.html';
     });
   }).catch((error) => {
     // Handle Errors here.

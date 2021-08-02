@@ -15,7 +15,7 @@ window.onload = (event) => {
 };
 
 const getNotes = (userId) => {
-  const notesRef = firebase.database().ref(`users/${userId}`);
+  const notesRef = firebase.database().ref(`users/${userId}/notes`);
   notesRef.on('value', (snapshot) => {
     const data = snapshot.val();
     renderDataAsHtml(data);
@@ -35,7 +35,7 @@ const renderDataAsHtml = (data) => {
 
 const editNote = (noteId) => {
   const editNoteModal = document.querySelector('#editNoteModal');
-  const notesRef = firebase.database().ref(`users/${googleUserId}`);
+  const notesRef = firebase.database().ref(`users/${googleUserId}/notes`);
   notesRef.on('value', (snapshot) => {
     const data = snapshot.val();
     const noteDetails = data[noteId];
@@ -48,7 +48,7 @@ const editNote = (noteId) => {
 };
 
 const deleteNote = (noteId) => {
-  firebase.database().ref(`users/${googleUserId}/${noteId}`).remove();
+  firebase.database().ref(`users/${googleUserId}/notes/${noteId}`).remove();
 }
 
 const saveEditedNote = () => {
@@ -59,13 +59,40 @@ const saveEditedNote = () => {
     title: noteTitle,
     text: noteText
   };
-  firebase.database().ref(`users/${googleUserId}/${noteId}`).update(noteEdits);
+  firebase.database().ref(`users/${googleUserId}/notes/${noteId}`).update(noteEdits);
   closeEditModal();
 }
 
 const closeEditModal = () => {
   const editNoteModal = document.querySelector('#editNoteModal');
   editNoteModal.classList.toggle('is-active');
+};
+
+const createNote = () => {
+    const createNoteModal = document.querySelector("#createNoteModal");
+    createNoteModal.classList.toggle("is-active");
+}
+
+const saveCreatedNote = () => {
+  // 1. Capture the form data
+  const noteTitle = document.querySelector('#createTitleInput');
+  const noteText = document.querySelector('#createTextInput');
+  // 2. Format the data and write it to our database
+  firebase.database().ref(`users/${googleUserId}/notes`).push({
+    title: noteTitle.value,
+    text: noteText.value,
+    time: Date.now(),
+    shared: false
+  })
+  // 3. Clear the form so that we can write a new note
+  .then(() => {
+      closeCreateModal();
+  });
+}
+
+const closeCreateModal = () => {
+  const createNoteModal = document.querySelector('#createNoteModal');
+  createNoteModal.classList.toggle('is-active');
 };
 
 const createCard = (note, noteId) => {
