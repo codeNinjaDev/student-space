@@ -1,8 +1,8 @@
-const signIn = () => {
-  var provider = new firebase.auth.GoogleAuthProvider();
+const signOut = () => {
+  //var provider = new firebase.auth.GoogleAuthProvider();
   // console.log(provider)
   firebase.auth()
-  .signInWithPopup(provider)
+  .signOut()
   .then((result) => {
     /** @type {firebase.auth.OAuthCredential} */
     var credential = result.credential;
@@ -10,14 +10,7 @@ const signIn = () => {
 
     // The signed-in user info.
     var user = result.user;
-
-    console.log(user.displayName);
-    firebase.database().ref(`users/${user.uid}`).update({
-        displayName: user.displayName,
-    })
-    .then(() => {
-        window.location = 'writeNote.html';
-    });
+    window.location = 'index.html';
   }).catch((error) => {
     // Handle Errors here.
     var errorCode = error.code;
@@ -35,3 +28,4 @@ const signIn = () => {
     console.log(err);
   });
 }
+

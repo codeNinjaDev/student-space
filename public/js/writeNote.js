@@ -17,9 +17,11 @@ const handleNoteSubmit = () => {
   const noteTitle = document.querySelector('#noteTitle');
   const noteText = document.querySelector('#noteText');
   // 2. Format the data and write it to our database
-  firebase.database().ref(`users/${googleUser.uid}`).push({
+  firebase.database().ref(`users/${googleUser.uid}/notes`).push({
     title: noteTitle.value,
-    text: noteText.value
+    text: noteText.value,
+    time: Date.now(),
+    shared: false
   })
   // 3. Clear the form so that we can write a new note
   .then(() => {
@@ -28,14 +30,3 @@ const handleNoteSubmit = () => {
   });
 }
 
-const logout = () =>{
-    window.location = 'index.html';
-}
-
-const extreme = () =>{
-    window.location = 'extremeStudy.html';
-}
-
-const normal = () =>{
-    window.location = 'writeNote.html';
-}
