@@ -6,10 +6,15 @@ input::placeholder {
   background: var(--card-bg);
 }
 
+.level {
+    width: clamp(250px, 600px, 400px);
+}
+
 /* Card start*/
 .card {
   overflow: hidden;
-  background: yellow;
+  width: clamp(250px, 600px, 400px);
+  margin: 2rem 0;
   /* color: var(--bg); */
 }
 
