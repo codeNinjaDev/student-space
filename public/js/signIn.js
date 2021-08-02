@@ -10,7 +10,14 @@ const signIn = () => {
 
     // The signed-in user info.
     var user = result.user;
-    window.location = 'writeNote.html';
+
+    console.log(user.displayName);
+    firebase.database().ref(`users/${user.uid}`).update({
+        displayName: user.displayName,
+    })
+    .then(() => {
+        window.location = 'writeNote.html';
+    });
   }).catch((error) => {
     // Handle Errors here.
     var errorCode = error.code;
