@@ -27,3 +27,15 @@ const handleNoteSubmit = () => {
     noteText.value = "";
   });
 }
+
+const logout = () =>{
+    window.location = 'index.html';
+}
+
+const extreme = () =>{
+    window.location = 'extremeStudy.html';
+}
+
+const normal = () =>{
+    window.location = 'writeNote.html';
+}
