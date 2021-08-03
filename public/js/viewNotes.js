@@ -7,6 +7,7 @@ window.onload = (event) => {
       console.log('Logged in as: ' + user.displayName);
       googleUserId = user.uid;
       getNotes(googleUserId);
+      getToDo(googleUserId);
     } else {
       // If not logged in, navigate back to login page.
       window.location = 'index.html'; 
@@ -119,21 +120,36 @@ const createCard = (note, noteId) => {
   return innerHTML;
 };
 
+const getToDo = (userId) => {
+  const notesRef = firebase.database().ref(`users/${userId}/To-Do`);
+  notesRef.on('value', (snapshot) => {
+    const data = snapshot.val();
+    renderToDoDataAsHtml(data);
+  });
+};
+
+const renderToDoDataAsHtml = (data) => {
+  let cards = ``;
+  for(const noteItem in data) {
+    const note = data[noteItem];
+    // For each note create an HTML card
+    cards += createToDo(note, noteItem)
+  };
+  // Inject our string of HTML into our viewNotes.html page
+  document.querySelector('#addList').innerHTML = cards;
+};
+
 const submitToDo = () =>{
     const list = document.querySelector(`#toDo`).value;
     console.log(list);
-    /*
     firebase.database().ref(`users/${googleUserId.uid}/To-Do`).push({
     Task: list,
-    Date: Date,
+    Time: Date.now(),
     shared: false
     })
     .then(() => {
-    list = "";
+        list.value = "";
   });
-  */
-    document.querySelector("#addList").innerHTML = createToDo(list);
-    //createToDo(list);
 }
 
 const createToDo = (text) =>{
@@ -141,7 +157,7 @@ const createToDo = (text) =>{
         <div id="todoEdit" class="field">
             <label class="checkbox">
                 <input type="checkbox">
-                    "${text}"
+                    ${text}
                 <button class="button is-black">Delete</button>
             </label>
         </div>
