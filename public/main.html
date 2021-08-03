@@ -20,9 +20,16 @@
     <script defer src="/__/firebase/8.3.1/firebase-auth.js"></script>
     <script defer src="/__/firebase/8.3.1/firebase-database.js"></script>
     <script defer src="/__/firebase/init.js?useEmulator=true"></script>
-    <script src="js/viewNotes.js"></script>
-    <script src="js/signOut.js"></script>
-    <!-- <script src="js/writeNote.js"></script> -->
+
+    <script src="js/dateHelpers.js" defer></script>
+    <script src="js/main.js" defer></script>
+    <script src="js/signOut.js" defer></script>
+    <script src="js/calendar.js" defer></script>
+    <script src="js/todo.js" defer></script>
+
+    <!-- Google APIs -->
+    <script async defer src="https://apis.google.com/js/api.js">
+    </script>
 </head>
 
 <body style="background-color: rgb(134, 162, 255);">
@@ -37,7 +44,7 @@
                     <a onclick="signOut()" class="button is-light">
                         Sign Out
                     </a>
-                 </div>
+                </div>
             </div>
         </div>
     </nav>
@@ -65,21 +72,28 @@
             </div>
             <div class="columns is-centered">
                 <section class="column is-narrow">
-            <!-- FAB container -->
-            <section class="level is-centered">
-                <!-- Right side -->
-                <div class="level-left">
-<h2>My Notes: </h2>                    
-                </div>
-                <div class="level-right">
-                    <button class="level-item mdc-fab is-primary" aria-label="Add" onclick="createNote()">
-                        <div class="mdc-fab__ripple"></div>
-                        <span class="mdc-fab__icon material-icons">add</span>
-                    </button>
-                </div>
-            </section>
+                    <!-- FAB container -->
+                    <section class="level is-centered">
+                        <!-- Right side -->
+                        <div class="level-left">
+                            <h2>My Notes: </h2>
+                        </div>
+                        <div class="level-right">
+                            <button class="level-item mdc-fab is-primary" aria-label="Add" onclick="createNote()">
+                                <div class="mdc-fab__ripple"></div>
+                                <span class="mdc-fab__icon material-icons">add</span>
+                            </button>
+                        </div>
+                    </section>
                 </section>
             </div>
+                <div class="columns is-centered">
+
+                <section id="calendarView" class="column is-narrow">
+
+                </section>
+            </div>
+            
             <div id="app" class="columns is-centered">
 
                 <!-- List view -->
@@ -122,12 +136,13 @@
 
         </div>
     </div>
-    <footer class="footer">
+    <footer class="footer" style="background-color: black">
         <div class="container">
             <div class="content has-text-centered">
                 <p>
-                    <strong>Bulma</strong> by <a href="http://jgthms.com">Jeremy Thomas</a>.
-                    The source code is licensed <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. <br>
+                    <strong style="color: white;">Project made by Peter Chacko, Casey Avila, and Victor Juarez</strong>.
+                    Created with <a href="https://bulma.io/">Bulma</a> and <a
+                        href="https://cssicurriculum.withgoogle.com/102curriculum.html">Google CSSI Curriculum</a><br>
                 </p>
             </div>
         </div>
