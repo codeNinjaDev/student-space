@@ -21,15 +21,24 @@
     <script defer src="/__/firebase/8.3.1/firebase-database.js"></script>
     <script defer src="/__/firebase/init.js?useEmulator=true"></script>
     <script src="js/viewNotes.js"></script>
+    <script src="js/signOut.js"></script>
+    <!-- <script src="js/writeNote.js"></script> -->
 </head>
 
-<body>
+<body style="background-color: rgb(134, 162, 255);">
 
     <nav class="navbar" role="navigation" aria-label="main navigation">
-        <div class="navbar-menu">
-            <a class="navbar-item" href="writeNote.html">
-                Add a new note
-            </a>
+        <div class="navbar-end">
+            <div class="navbar-item">
+                <div class="buttons">
+                    <a href="extremeStudy.html" class="button is-primary" style="background-color: rgb(173, 70, 173);">
+                        <strong>X-Treme Study Mode</strong>
+                    </a>
+                    <a onclick="signOut()" class="button is-light">
+                        Sign Out
+                    </a>
+                 </div>
+            </div>
         </div>
     </nav>
 
@@ -42,8 +51,10 @@
                         <div class="control">
                             <input id="toDo" class="input" placeholder="Add to your list">
                         </div>
-                        <button onclick="submitToDo()" class="button is-info is-rounded" style="margin-left: 60%;">Add</button>
+                        <button onclick="submitToDo()" class="button is-info is-rounded" style="margin-left: 60%;">Add</button>        
                     </div>
+                    <section id="addList" class="column is-narrow">
+                    </section>
                 </div>
 
                 
@@ -61,7 +72,7 @@
 <h2>My Notes: </h2>                    
                 </div>
                 <div class="level-right">
-                    <button class="level-item mdc-fab is-primary" aria-label="Add">
+                    <button class="level-item mdc-fab is-primary" aria-label="Add" onclick="createNote()">
                         <div class="mdc-fab__ripple"></div>
                         <span class="mdc-fab__icon material-icons">add</span>
                     </button>
@@ -103,8 +114,8 @@
                         <textarea class="textarea is-normal" id="createTextInput"></textarea>
                     </section>
                     <footer class="modal-card-foot">
-                        <button class="button is-success" onclick="saveNote()">Save changes</button>
-                        <button class="button" onclick="closeNoteModal()">Cancel</button>
+                        <button class="button is-success" onclick="saveCreatedNote()">Create Note</button>
+                        <button class="button" onclick="closeCreateModal()">Cancel</button>
                     </footer>
                 </div>
             </div>

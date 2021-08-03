@@ -17,11 +17,9 @@ const handleNoteSubmit = () => {
   const noteTitle = document.querySelector('#noteTitle');
   const noteText = document.querySelector('#noteText');
   // 2. Format the data and write it to our database
-  firebase.database().ref(`users/${googleUser.uid}/notes`).push({
+  firebase.database().ref(`users/${googleUser.uid}`).push({
     title: noteTitle.value,
-    text: noteText.value,
-    time: Date.now(),
-    shared: false
+    text: noteText.value
   })
   // 3. Clear the form so that we can write a new note
   .then(() => {
@@ -29,4 +27,5 @@ const handleNoteSubmit = () => {
     noteText.value = "";
   });
 }
+
 
