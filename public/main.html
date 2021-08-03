@@ -25,13 +25,15 @@
     <script src="js/main.js" defer></script>
     <script src="js/signOut.js" defer></script>
     <script src="js/calendar.js" defer></script>
+    <script src="js/todo.js" defer></script>
 
     <!-- Google APIs -->
     <script async defer src="https://apis.google.com/js/api.js">
     </script>
 </head>
 
-<body>
+<body style="background-color: rgb(134, 162, 255);">
+
     <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-end">
             <div class="navbar-item">
@@ -46,16 +48,29 @@
             </div>
         </div>
     </nav>
+
     <div class="container">
         <div class="section">
             <div class="columns">
+                <div class="box is-two-thirds has-text-left" style="background-color: rgb(146, 202, 255); position: absolute;">
+                    <div class="field">
+                        <label class="label" style="text-align: center;">To-Do</label>
+                        <div class="control">
+                            <input id="toDo" class="input" placeholder="Add to your list">
+                        </div>
+                        <button onclick="submitToDo()" class="button is-info is-rounded" style="margin-left: 60%;">Add</button>        
+                    </div>
+                    <section id="addList" class="column is-narrow">
+                    </section>
+                </div>
+
+                
+
                 <div class="column has-text-centered">
                     <h1 class="title">Some of Your Greatest Ideas Started Here</h1><br>
                 </div>
             </div>
-
             <div class="columns is-centered">
-
                 <section class="column is-narrow">
                     <!-- FAB container -->
                     <section class="level is-centered">
