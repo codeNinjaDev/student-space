@@ -69,13 +69,27 @@ const renderCalendars = (calendarTable, startingDay, endingDay) => {
     var arrayOfWeekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 
     const calendarViewDates = getDates(startingDay, endingDay);
+    const calendarViewElement = document.querySelector('#calendarView');
     calendarViewDates.forEach(date => {
-        const dayIndex = date.getDay();
-        const eventCalendarPairs = calendarTable[dayIndex] || [];
+        
+        const eventCalendarPairs = calendarTable[date] || [];
+
+        const calendarDayElement = document.createElement('div');
+        calendarDayElement.classList.add('day');
+        const dayElement = document.createElement('h3');
+        dayElement.classList.add('dayTitle');
+        dayElement.textContent = arrayOfWeekdays[date.getDay()];
+        calendarDayElement.appendChild(dayElement);
 
         eventCalendarPairs.forEach(([event, calendar]) => {
             console.log(event, calendar);
+            const eventElement = document.createElement('h5');
+            eventElement.textContent = event.summary;
+            eventElement.style.color = calendar.foregroundColor;
+            eventElement.style.backgroundColor = calendar.backgroundColor;
+            calendarDayElement.appendChild(eventElement);
         });
+        calendarViewElement.appendChild(calendarDayElement);
     });
 
 
@@ -102,10 +116,11 @@ const filterEvents = async (calendar, startingDay, endingDay, calendarTable) => 
         const eventStart = new Date(event.start.dateTime);
         const eventEnd = new Date(event.end.dateTime);
 
-        // Get Days of week of event
-        const dateRange = getDates(eventStart, eventEnd).map(d => d.getDay());
+        const dateRange = getDates(eventStart, eventEnd);
 
+        // TODO: Work on date comparison. Check timezone.
         for (const day of dateRange) {
+            day.setHours(0, 0, 0);
             if (!calendarTable.hasOwnProperty(day)) {
                 calendarTable[day] = []
             }
@@ -229,6 +244,7 @@ function getDates(startDate, endDate) {
     const addDays = function (days) {
         const date = new Date(this.valueOf())
         date.setDate(date.getDate() + days)
+        date.setHours(0, 0, 0)
         return date
     }
     while (currentDate <= endDate) {
