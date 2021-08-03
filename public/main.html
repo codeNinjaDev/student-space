@@ -20,8 +20,10 @@
     <script defer src="/__/firebase/8.3.1/firebase-auth.js"></script>
     <script defer src="/__/firebase/8.3.1/firebase-database.js"></script>
     <script defer src="/__/firebase/init.js?useEmulator=true"></script>
-    <script src="js/viewNotes.js"></script>
-    <script src="js/signOut.js"></script>
+    <script src="js/viewNotes.js" defer></script>
+    <script src="js/signOut.js" defer></script>
+    <script async defer src="https://apis.google.com/js/api.js">
+    </script>
     <!-- <script src="js/writeNote.js"></script> -->
 </head>
 
@@ -36,7 +38,7 @@
                     <a onclick="signOut()" class="button is-light">
                         Sign Out
                     </a>
-                 </div>
+                </div>
             </div>
         </div>
     </nav>
@@ -51,19 +53,19 @@
             <div class="columns is-centered">
 
                 <section class="column is-narrow">
-            <!-- FAB container -->
-            <section class="level is-centered">
-                <!-- Right side -->
-                <div class="level-left">
-<h2>My Notes: </h2>                    
-                </div>
-                <div class="level-right">
-                    <button class="level-item mdc-fab is-primary" aria-label="Add" onclick="createNote()">
-                        <div class="mdc-fab__ripple"></div>
-                        <span class="mdc-fab__icon material-icons">add</span>
-                    </button>
-                </div>
-            </section>
+                    <!-- FAB container -->
+                    <section class="level is-centered">
+                        <!-- Right side -->
+                        <div class="level-left">
+                            <h2>My Notes: </h2>
+                        </div>
+                        <div class="level-right">
+                            <button class="level-item mdc-fab is-primary" aria-label="Add" onclick="createNote()">
+                                <div class="mdc-fab__ripple"></div>
+                                <span class="mdc-fab__icon material-icons">add</span>
+                            </button>
+                        </div>
+                    </section>
                 </section>
             </div>
             <div id="app" class="columns is-centered">
