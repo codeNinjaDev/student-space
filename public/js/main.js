@@ -37,6 +37,7 @@ window.onload = (event) => {
             console.log('Logged in as: ' + user.displayName);
             googleUserId = user.uid;
             getNotes(googleUserId);
+            getToDo(googleUserId);
         } else {
             // If not logged in, navigate back to login page.
             window.location = 'index.html';

@@ -52,26 +52,27 @@
     <div class="container">
         <div class="section">
             <div class="columns">
-                <div class="box is-two-thirds has-text-left" style="background-color: rgb(146, 202, 255); position: absolute;">
-                    <div class="field">
-                        <label class="label" style="text-align: center;">To-Do</label>
-                        <div class="control">
-                            <input id="toDo" class="input" placeholder="Add to your list">
-                        </div>
-                        <button onclick="submitToDo()" class="button is-info is-rounded" style="margin-left: 60%;">Add</button>        
-                    </div>
-                    <section id="addList" class="column is-narrow">
-                    </section>
-                </div>
-
-                
-
                 <div class="column has-text-centered">
-                    <h1 class="title">Some of Your Greatest Ideas Started Here</h1><br>
+                    <h1 class="title">Get Stuff Done.</h1><br>
                 </div>
             </div>
-            <div class="columns is-centered">
-                <section class="column is-narrow">
+            
+            <div id="app" class="columns is-centered">
+                <div class="column is-narrow">
+                    <div class="box has-text-left" style="background-color: rgb(146, 202, 255);">
+                        <div class="field">
+                            <label class="label" style="text-align: center;">To-Do</label>
+                            <div class="control">
+                                <input id="toDo" class="input" placeholder="Add to your list">
+                            </div>
+                            <button onclick="submitToDo()" class="button is-info is-rounded" style="margin-left: 60%;">Add</button>        
+                        </div>
+                        <section id="addList">
+                        </section>
+                    </div>
+                </div>
+
+                <div class="column is-narrow">
                     <!-- FAB container -->
                     <section class="level is-centered">
                         <!-- Right side -->
@@ -85,20 +86,17 @@
                             </button>
                         </div>
                     </section>
-                </section>
-            </div>
-                <div class="columns is-centered">
-
-                <section id="calendarView" class="column is-narrow">
-
-                </section>
-            </div>
-            
-            <div id="app" class="columns is-centered">
+                    <section id="listView">
+                    </section>
+                </div>
+                <div class="column is-narrow">
+                    <section id="calendarView">
+                    </section>
+                </div>
 
                 <!-- List view -->
-                <section id="listView" class="column is-narrow">
-                </section>
+
+
             </div>
             <div id="editNoteModal" class="modal">
                 <div class="modal-background"></div>
