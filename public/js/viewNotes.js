@@ -101,7 +101,8 @@ const filterEvents = async (calendar, startingDay, endingDay, calendarTable) => 
             calendarId: calendar.id,
             timeMin: startingDay.toISOString(),
             timeMax: endingDay.toISOString(),
-            showDeleted: false
+            showDeleted: false,
+            singleEvents: true,
         }
     )
     const eventList = eventListResponse.result.items;
@@ -110,7 +111,7 @@ const filterEvents = async (calendar, startingDay, endingDay, calendarTable) => 
         const eventResponse = await gapi.client.calendar.events.get({ calendarId: calendar.id, eventId: eventItem.id })
         const event = eventResponse.result;
         if (event.status === "cancelled") {
-            return;
+            continue;
         }
         // Date.parse is not recommended, but is best option for parsing API datetime
         const eventStart = new Date(event.start.dateTime);
@@ -237,19 +238,3 @@ const createCard = (note, noteId) => {
     return innerHTML;
 };
 
-// Returns an array of dates between the two dates https://gist.github.com/miguelmota/7905510
-function getDates(startDate, endDate) {
-    const dates = []
-    let currentDate = startDate
-    const addDays = function (days) {
-        const date = new Date(this.valueOf())
-        date.setDate(date.getDate() + days)
-        date.setHours(0, 0, 0)
-        return date
-    }
-    while (currentDate <= endDate) {
-        dates.push(currentDate)
-        currentDate = addDays.call(currentDate, 1)
-    }
-    return dates
-}
