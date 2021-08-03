@@ -89,3 +89,29 @@ const createCard = (note, noteId) => {
 
   return innerHTML;
 };
+
+const submitToDo = () =>{
+    const list = document.querySelector(`#toDo`).value;
+
+    firebase.database().ref(`users/${googleUser.uid}`).push({
+    Task: list,
+    Date: Date,
+    shared: false
+    })
+    .then(() => {
+    list = "";
+  });
+    createToDo(list);
+}
+
+const createToDo = (text) =>{
+    let innerHTML = `
+        <div id="todoEdit" class="field">
+            <label class="checkbox">
+                <input type="checkbox">
+                    ${text}
+                <button class="button is-black">Delete</button>
+            </label>
+        </div>
+    `
+}
