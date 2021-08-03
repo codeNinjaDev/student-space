@@ -58,7 +58,6 @@ const getCalendars = async () => {
         console.log(`%c${calendar.summary}`, `color: ${calendar.backgroundColor}`);
         await filterEvents(calendar, startingDay, endingDay, fullCalendar);
     }
-    console.log(fullCalendar);
     renderCalendars(fullCalendar, startingDay, endingDay);
 
 
@@ -72,6 +71,7 @@ const renderCalendars = (calendarTable, startingDay, endingDay) => {
     const calendarViewElement = document.querySelector('#calendarView');
     calendarViewDates.forEach(date => {
         
+
         const eventCalendarPairs = calendarTable[date] || [];
 
         const calendarDayElement = document.createElement('div');
@@ -79,10 +79,16 @@ const renderCalendars = (calendarTable, startingDay, endingDay) => {
         const dayElement = document.createElement('h3');
         dayElement.classList.add('dayTitle');
         dayElement.textContent = arrayOfWeekdays[date.getDay()];
+
+        if (getTodayDate().toDateString() === date.toDateString()) {
+            dayElement.textContent = "🔵" + dayElement.textContent
+        } else {
+            console.log(getTodayDate(), date);
+        }
+
         calendarDayElement.appendChild(dayElement);
 
         eventCalendarPairs.forEach(([event, calendar]) => {
-            console.log(event, calendar);
             const eventElement = document.createElement('h5');
             eventElement.textContent = event.summary;
             eventElement.style.color = calendar.foregroundColor;

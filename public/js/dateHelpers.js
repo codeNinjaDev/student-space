@@ -2,7 +2,7 @@
 function getDates(startDate, endDate) {
     startDate.setHours(0, 0, 0);
     endDate.setHours(0, 0, 0);
-    
+
     const dates = []
     let currentDate = startDate
     const addDays = function (days) {
@@ -17,4 +17,10 @@ function getDates(startDate, endDate) {
         currentDate = addDays.call(currentDate, 1)
     }
     return dates
+}
+
+function getTodayDate() {
+    const today = new Date();
+    today.setHours(0, 0, 0);
+    return today;
 }
