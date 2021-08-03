@@ -38,3 +38,18 @@ input::placeholder {
   color: ghostwhite;
   margin: 10px
 }
+
+.day {
+    background-color: aliceblue;
+    border-color: black;
+    border-width: 1px;
+    
+}
+
+.day > h5 {
+    margin-left: 1.5rem;
+}
+
+.dayTitle {
+    
+}

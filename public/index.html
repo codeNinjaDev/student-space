@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Fire Notes</title>
@@ -8,29 +9,21 @@
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
-    <style type="text/css">
-      html,
-      body {
-          font-family: 'Open Sans';
-          /*background-color: rgb(187, 187, 187);*/
-          background-image: radial-gradient(rgb(187, 187, 187), rgb(121, 179, 255), blueviolet);
-          color: white;
-      }
-
-      img {
-          padding: 5px;
-          border: 1px solid #ccc;
-      }
-    </style>
+    <link href="css/signin.css" rel="stylesheet">
     <!-- update the version number as needed -->
     <script defer src="/__/firebase/8.3.1/firebase-app.js"></script>
     <!-- include only the Firebase features as you need -->
     <script defer src="/__/firebase/8.3.1/firebase-auth.js"></script>
     <script defer src="/__/firebase/8.3.1/firebase-database.js"></script>
     <script defer src="/__/firebase/init.js?useEmulator=true"></script>
-    <script src="js/signIn.js"></script>
-  </head>
-  <body>
+    <script src="js/signIn.js" defer></script>
+
+    <script async defer src="https://apis.google.com/js/api.js">
+    </script>
+
+</head>
+
+<body>
 
     <section class="hero is-fullheight is-default is-bold">
         <div class="hero-body">
@@ -41,11 +34,12 @@
                             Welcome to Student Space 🔮
                         </h1>
                         <h2 class="subtitle is-4" style="color: white;">
-                            Log in to view your student dashboard 
+                            Log in to view your student dashboard
                         </h2>
                         <br>
                         <p class="has-text-centered">
-                            <a class="button is-medium is-info is-outlined" onclick="signIn()" style="background-color: rgb(226, 226, 226)">
+                            <a class="button is-medium is-info is-outlined" onclick="signIn()"
+                                style="background-color: rgb(226, 226, 226)">
                                 Sign In
                             </a>
                         </p>
@@ -54,17 +48,19 @@
             </div>
         </div>
     </section>
-    
+
     <footer class="footer" style="background-color: black">
-      <div class="container">
-        <div class="content has-text-centered">
-          <p>
-            <strong style="color: white;">Project made by Peter Chacko, Casey Avila, and Victor Juarez</strong>.
-            Created with <a href="https://bulma.io/">Bulma</a> and <a href="https://cssicurriculum.withgoogle.com/102curriculum.html">Google CSSI Curriculum</a><br>
-          </p>
+        <div class="container">
+            <div class="content has-text-centered">
+                <p>
+                    <strong style="color: white;">Project made by Peter Chacko, Casey Avila, and Victor Juarez</strong>.
+                    Created with <a href="https://bulma.io/">Bulma</a> and <a
+                        href="https://cssicurriculum.withgoogle.com/102curriculum.html">Google CSSI Curriculum</a><br>
+                </p>
+            </div>
         </div>
-      </div>
     </footer>
 
-  </body>
+</body>
+
 </html>

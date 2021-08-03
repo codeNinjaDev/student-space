@@ -1,0 +1,12 @@
+html,
+        body {
+            font-family: 'Open Sans';
+            /*background-color: rgb(187, 187, 187);*/
+            background-image: radial-gradient(rgb(187, 187, 187), rgb(121, 179, 255), blueviolet);
+            color: white;
+        }
+
+        img {
+            padding: 5px;
+            border: 1px solid #ccc;
+        }
