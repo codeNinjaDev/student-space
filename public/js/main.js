@@ -131,7 +131,7 @@ const closeCreateModal = () => {
 
 const createCard = (note, noteId) => {
     let innerHTML = "";
-    innerHTML += `<div class="card">`
+    innerHTML += `<div class="card my-note" data-note-id="${noteId}">`
     innerHTML += `<header class="card-header">`
     innerHTML += `<p class="card-header-title">`
     innerHTML += `${note.title}`
@@ -150,4 +150,24 @@ const createCard = (note, noteId) => {
 
     return innerHTML;
 };
+
+const noteSearchInput = document.querySelector("#note-search");
+noteSearchInput.addEventListener("keyup", e => {
+    const noteArray = document.querySelectorAll(".my-note");
+    const searchRe = new RegExp(`.*(${noteSearchInput.value.toLowerCase()}).*`);
+
+
+    for (let note of noteArray) {
+        const noteRef = firebase.database().ref(`users/${googleUserId}/notes/${note.dataset.noteId}`);
+        noteRef.on('value', (snapshot) => {
+            const data = snapshot.val();
+            if (!searchRe.test(data.title.toLowerCase())) {
+                console.log(data);
+                note.hidden = true;
+            } else {
+                note.hidden = false;
+            }
+        });
+    }
+});
 
