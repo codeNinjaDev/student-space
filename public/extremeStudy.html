@@ -16,7 +16,10 @@
     <script defer src="/__/firebase/8.3.1/firebase-auth.js"></script>
     <script defer src="/__/firebase/8.3.1/firebase-database.js"></script>
     <script defer src="/__/firebase/init.js?useEmulator=true"></script>
-    <script src="js/writeNote.js"></script>
+    <script src="js/facedetection/camvas.js" defer></script>
+    <script src="js/facedetection/pico.js" defer></script>
+    <script src="js/xtrememode.js" defer></script>
+
 </head>
 
 <body>
@@ -37,50 +40,8 @@
         </div>
     </nav>
 
-    <section class="hero is-fullheight">
-        <div class="hero-body">
-            <div class="container has-text-centered">
-                <div class="columns is-8 is-variable ">
-
-                    <!-- WELCOME HERO -->
-                    <div class="column is-two-thirds has-text-left">
-                        <h1 class="title is-1">What's on your mind?</h1>
-                        <h1 class="title is-3">
-                            “The most beautiful things are those that madness prompts and reason writes."
-                        </h1>
-                        <h1 class="subtitle is-5">
-                            —Andre Gide
-                        </h1>
-                        <a href="viewNotes.html"><button
-                                class="button is-link has-text-weight-medium is-medium is-centered">Click
-                                Here</button></a>
-                        to view your notes.
-                    </div>
-
-                    <!-- NOTE FORM -->
-                    <div class="column is-one-third has-text-left">
-                        <div class="field">
-                            <label class="label">Title</label>
-                            <div class="control">
-                                <input class="input is-medium" type="text" id="noteTitle">
-                            </div>
-                        </div>
-                        <div class="field">
-                            <label class="label">Note</label>
-                            <div class="control">
-                                <textarea class="textarea is-medium" id="noteText"></textarea>
-                            </div>
-                        </div>
-                        <div class="control">
-                            <button class="button is-link is-fullwidth has-text-weight-medium is-medium"
-                                onclick="handleNoteSubmit()">Create Note</button>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </section>
+				<p><center><input type="button" value="Start real-time face detection" onclick="button_callback()"></center></p>
+		<p><center><canvas width=640 height=480></canvas></center></p>
 
 </body>
 
