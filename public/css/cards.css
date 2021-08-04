@@ -150,4 +150,5 @@ input:checked + .slider:before {
 
 ::-webkit-scrollbar { 
     display: none; 
+
 }

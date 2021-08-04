@@ -36,6 +36,16 @@ window.onload = (event) => {
             gapi.load('client:auth2', initClient);
             console.log('Logged in as: ' + user.displayName);
             googleUserId = user.uid;
+        const currentURLParams = window.location.hash.replace("#", "?");	
+        const accessToken = new URLSearchParams(currentURLParams).get('access_token');	
+	    if (accessToken) {
+            updateSpotifyHeaders(accessToken);
+            displaySpotifyController();
+
+	    } else {
+		    renderSpotifyLogin();
+	    }
+
             getNotes(googleUserId);
             getToDo(googleUserId);
         } else {

@@ -2,31 +2,54 @@
 
 // Get all calendars
 const getCalendars = async () => {
+    // Get a list of all the calendars is user's Google Account
     const listResponse = await gapi.client.calendar.calendarList.list();
     const calendarList = listResponse.result.items;
+
+    // Set Calendar Day range from the day before to day through the next week
+
     const startingDay = new Date();
+    startingDay.setHours(0, 0, 0);
     startingDay.setDate(startingDay.getDate() - 1);
     const endingDay = new Date();
+    endingDay.setHours(0, 0, 0);
     endingDay.setDate(startingDay.getDate() + 7);
 
-    const fullCalendar = {}
-    for (const calendar of calendarList) {
-        console.log(`%c${calendar.summary}`, `color: ${calendar.backgroundColor}`);
-        await filterEvents(calendar, startingDay, endingDay, fullCalendar);
-    }
-    renderCalendars(fullCalendar, startingDay, endingDay);
+    // Create an object to store events (and their calendars) as the value and the date as the key
+    //console.log(`%c${calendar.summary}`, `color: ${calendar.backgroundColor}`);
+    const calendarViewElement = document.querySelector('#calendarView');
+    calendarViewElement.innerHTML = '<progress id="calendarProgress" class="progress is-large is-info" max="100">15%</progress>';
+    Promise.all(
+        calendarList.map(async calendar => {
+            return filterEvents(calendar, startingDay, endingDay);
+        })
+    ).then((allCalendarTables) => {
+        const fullCalendar = {}
+        for (const individualTable of allCalendarTables) {
+            for (const key in individualTable) {
+                if (!fullCalendar.hasOwnProperty(key)) {
+                    fullCalendar[key] = [];
+                }
+                fullCalendar[key] = fullCalendar[key].concat(individualTable[key]);
+            }
+        }
+        renderCalendars(fullCalendar, startingDay, endingDay);
+        document.querySelector("#calendarProgress").remove();
+    });
 };
 
 // Render calendar to screen
-const renderCalendars = (calendarTable, startingDay, endingDay) => {
+const renderCalendars = (fullCalendarTable, startingDay, endingDay) => {
     var arrayOfWeekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 
+    // Get dates between starting day and ending day (inclusive)
     const calendarViewDates = getDates(startingDay, endingDay);
     const calendarViewElement = document.querySelector('#calendarView');
     calendarViewDates.forEach(date => {
-    
-        const eventCalendarPairs = calendarTable[date] || [];
+        // Get the events happening that day
+        const eventCalendarPairs = fullCalendarTable[date] || [];
 
+        // Build day element
         const calendarDayElement = document.createElement('div');
         calendarDayElement.classList.add('day');
         const dayElement = document.createElement('h3');
@@ -41,6 +64,7 @@ const renderCalendars = (calendarTable, startingDay, endingDay) => {
 
         calendarDayElement.appendChild(dayElement);
 
+        // For each event (and calendar) happening during the day, append it to the calendar
         eventCalendarPairs.forEach(([event, calendar]) => {
             const eventElement = document.createElement('h5');
             eventElement.textContent = event.summary;
@@ -50,13 +74,13 @@ const renderCalendars = (calendarTable, startingDay, endingDay) => {
         });
         calendarViewElement.appendChild(calendarDayElement);
     });
-
+    
 
 };
 
 // Populate JavaScript object with events based on day
-const filterEvents = async (calendar, startingDay, endingDay, calendarTable) => {
-
+const filterEvents = async (calendar, startingDay, endingDay) => {
+    const calendarTable = {};
     const eventListResponse = await gapi.client.calendar.events.list(
         {
             calendarId: calendar.id,
@@ -89,6 +113,8 @@ const filterEvents = async (calendar, startingDay, endingDay, calendarTable) => 
             calendarTable[day].push([event, calendar]);
         }
     }
+    return calendarTable;
+
 
 };
 

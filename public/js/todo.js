@@ -5,6 +5,7 @@ const getToDo = (userId) => {
   const notesRef = firebase.database().ref(`users/${userId}/To-Do`);
   notesRef.on('value', (snapshot) => {
     const data = snapshot.val();
+    console.log("asdfoj");
     renderToDoDataAsHtml(data);
   });
 };
@@ -15,7 +16,7 @@ const renderToDoDataAsHtml = (data) => {
   for(const ToDoItem in data) {
     const note = data[ToDoItem];
     // For each note create an HTML card
-    document.querySelector('#addList').appendChild(createToDo(note.Task, ToDoItem));
+    document.querySelector('#addList').appendChild(createToDo(note, ToDoItem));
   };
   // Inject our string of HTML into our viewNotes.html page
 };
@@ -25,14 +26,14 @@ const submitToDo = () =>{
     firebase.database().ref(`users/${googleUserId2}/To-Do`).push({
     Task: list,
     Time: Date.now(),
-    shared: false
+    completed: false
     })
     .then(() => {
         list.value = "";
   });
 }
 
-const createToDo = (text, toDoItemId) =>{
+const createToDo = (toDo, toDoItemId) =>{
     const toDoElement = document.createElement("div");
     toDoElement.classList.add("field")
     const checkboxLabel = document.createElement("label")
@@ -40,8 +41,11 @@ const createToDo = (text, toDoItemId) =>{
     toDoElement.appendChild(checkboxLabel);    
     const newInput = document.createElement("input");
     newInput.setAttribute("type","checkbox");
+    newInput.checked = toDo.completed;
+
+
     const todoText = document.createElement("span");
-    todoText.textContent = text;
+    todoText.textContent = toDo.Task;
     checkboxLabel.appendChild(newInput);
     checkboxLabel.appendChild(todoText);
     const deleteButton =  document.createElement("button");
@@ -51,6 +55,12 @@ const createToDo = (text, toDoItemId) =>{
         toDoElement.remove();
         firebase.database().ref(`users/${googleUserId2}/To-Do/${toDoItemId}`).remove();
     })
+    newInput.addEventListener("change", e => {
+        console.log(e);
+        firebase.database().ref(`users/${googleUserId2}/To-Do/${toDoItemId}`).update({
+            completed: newInput.checked
+        });
+    });
     return toDoElement;
     /*
     let innerHTML = `

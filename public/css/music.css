@@ -1,0 +1,26 @@
+#spotifySignInButton {
+	padding: 2rem;
+}
+#spotifySignInButton > img {
+	width: 144px;
+}
+#spotifyController {
+    justify-content: space-between;
+}
+#spotifyPlaybackControlContainer {
+    flex-grow: 0;
+    display: flex;
+    justify-content: center;
+}
+
+#spotifyPlaybackControlContainer > *{
+    margin: 0 0.5rem;
+}
+
+#spotifyControllerContainer {
+    border-radius: 1rem;
+    width: fit-content;
+}
+#spotifyCurrentSongImage {
+    border-radius: 0.25rem;
+}
