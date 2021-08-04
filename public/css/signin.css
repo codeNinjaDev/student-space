@@ -10,3 +10,7 @@ html,
             padding: 5px;
             border: 1px solid #ccc;
         }
+
+::-webkit-scrollbar { 
+    display: none; 
+}

@@ -35,9 +35,16 @@
     </script>
 </head>
 
-<body style="background-color: rgb(134, 162, 255);">
+<body>
 
-    <nav class="navbar" role="navigation" aria-label="main navigation">
+    <nav class="navbar" role="navigation" aria-label="main navigation" style="background-color: black;">
+        <div class="is-centered theme-switch-wrapper" style="align-content: left; margin-top: 10px; margin-left: 20px;">
+                    <strong style="color: white;">Enable Dark Mode</strong>
+                    <label class="switch theme-switch" for="checkbox">
+                        <input type="checkbox" id="checkbox">
+                        <span class="slider round"></span>
+                    </label>
+        </div>
         <div class="navbar-end">
             <div class="navbar-item">
                 <div class="buttons">
@@ -54,13 +61,13 @@
 
     <div class="container">
         <div class="section">
-            <div class="columns is-centered">
+
+            <div id="message-box" class="columns is-centered">
                 <div class="column is-narrow has-text-centered">
                     <h1 class="title">Get Stuff Done.</h1><br>
                     <div id="spotify">
 
                     </div>
-
                 </div>
             </div>
 
@@ -85,7 +92,7 @@
                     <section class="level is-centered">
                         <!-- Right side -->
                         <div class="level-left">
-                            <label class="label">Notes</label>
+                            <label class="label" id="font">Notes</label>
                         </div>
                         <div class="level-right">
                             <button class="level-item mdc-fab is-primary" aria-label="Add" onclick="createNote()">
@@ -146,7 +153,7 @@
     <footer class="footer" style="background-color: black">
         <div class="container">
             <div class="content has-text-centered">
-                <p>
+                <p style="color: white;">
                     <strong style="color: white;">Project made by Peter Chacko, Casey Avila, and Victor Juarez</strong>.
                     Created with <a href="https://bulma.io/">Bulma</a> and <a
                         href="https://cssicurriculum.withgoogle.com/102curriculum.html">Google CSSI Curriculum</a><br>
