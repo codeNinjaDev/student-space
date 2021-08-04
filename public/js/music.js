@@ -40,7 +40,7 @@ function displaySpotifyController() {
                             <div class="card-content">
                                 <div id="spotifyController" class="media">
                                     <div class="media-left">
-                                        <figure class="image is-48x48">
+                                        <figure id="spotifyFigure" class="image is-48x48">
                                             <img id="spotifyCurrentSongImage"
                                                 src="${albumImage.url}"
                                                 alt="${song.album.name}">
@@ -70,7 +70,7 @@ function displaySpotifyController() {
                             </div>
                         </div>
                     `;
-        });
+        }).catch(err => document.querySelector("#spotify").innerHTML=`<h3 class="title">${err}</h3>`);
 
 }
 // Need lock for race-condition
@@ -88,6 +88,9 @@ function pollForChanges() {
 // Check if not playing anything
 const getCurrentlyPlayingSpotify = async () => {
     const data = await fetch(`https://api.spotify.com/v1/me/player/currently-playing`, { headers: spotifyHeader }).then(response => response.json()).catch(err => console.log(err));
+    if (!data) {
+        throw 'Spotify not playing! To fix: play a song on spotify';
+    }
     return [data.is_playing, data.item];
 }
 
@@ -95,9 +98,9 @@ const togglePlayback = async () => {
     const [isPlaying, song] = await getCurrentlyPlayingSpotify();
     race_lock = true;
     if (isPlaying) {
-        await fetch(`https://api.spotify.com/v1/me/player/pause`, { method: 'PUT', headers: spotifyHeader }).then(response => response.json()).catch(err => console.log(err));
+        await fetch(`https://api.spotify.com/v1/me/player/pause`, { method: 'PUT', headers: spotifyHeader }).catch(err => console.log(err));
     } else {
-        await fetch(`https://api.spotify.com/v1/me/player/play`, { method: 'PUT', headers: spotifyHeader }).then(response => response.json()).catch(err => console.log(err));
+        await fetch(`https://api.spotify.com/v1/me/player/play`, { method: 'PUT', headers: spotifyHeader }).catch(err => console.log(err));
     }
     document.querySelector("#spotifySongStatus").textContent = !isPlaying ? 'pause': 'play_arrow';
     race_lock = false;
@@ -106,7 +109,7 @@ const togglePlayback = async () => {
 const skipNext = async () => {
     const [oldIsPlaying, oldSong] = await getCurrentlyPlayingSpotify();
     race_lock = true;
-    await fetch(`https://api.spotify.com/v1/me/player/next`, { method: 'POST', headers: spotifyHeader }).then(response => response.json()).catch(err => console.log(err));
+    await fetch(`https://api.spotify.com/v1/me/player/next`, { method: 'POST', headers: spotifyHeader }).catch(err => console.log(err));
     const [newIsPlaying, newSong] = await getCurrentlyPlayingSpotify();
     updateSpotifyCard(newIsPlaying, newSong);
     race_lock = false;
@@ -115,7 +118,7 @@ const skipNext = async () => {
 const skipPrev = async () => {
     const [oldIsPlaying, oldSong] = await getCurrentlyPlayingSpotify();
     race_lock = true;
-    await fetch(`https://api.spotify.com/v1/me/player/previous`, { method: 'POST', headers: spotifyHeader }).then(response => response.json()).catch(err => console.log(err));
+    await fetch(`https://api.spotify.com/v1/me/player/previous`, { method: 'POST', headers: spotifyHeader }).catch(err => console.log(err));
     const [newIsPlaying, newSong] = await getCurrentlyPlayingSpotify();
     updateSpotifyCard(newIsPlaying, newSong);
     race_lock = false;
