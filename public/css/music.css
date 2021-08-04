@@ -1,0 +1,6 @@
+#spotifySignInButton {
+	padding: 2rem;
+}
+#spotifySignInButton > img {
+	width: 144px;
+}
