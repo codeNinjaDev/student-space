@@ -3,6 +3,7 @@ const SPOTIFY_SCOPES = 'user-read-private user-read-email user-modify-playback-s
 const spotifyHeader = {}
 const POLL_TIME = 3000;
 let race_lock = false;
+let premium = false;
 
 function renderSpotifyLogin() {
     // Clear container
@@ -30,48 +31,55 @@ function updateSpotifyHeaders(accessToken) {
 
 function displaySpotifyController() {
     const spotifyContainer = document.querySelector("#spotify");
-    getCurrentlyPlayingSpotify()
-        .then(data => {
-            const [isPlaying, song] = data;
-            //console.log(song);
-            const albumImage = song.album.images[2];
-            setTimeout(pollForChanges, POLL_TIME);
-            spotifyContainer.innerHTML = `<div id="spotifyControllerContainer" class="card">
-                            <div class="card-content">
-                                <div id="spotifyController" class="media">
-                                    <div class="media-left">
-                                        <figure id="spotifyFigure" class="image is-48x48">
-                                            <img id="spotifyCurrentSongImage"
-                                                src="${albumImage.url}"
-                                                alt="${song.album.name}">
-                                        </figure>
+    isSpotifyPremium()
+     .then(isPremium => {
+        premium = isPremium;
+        getCurrentlyPlayingSpotify()
+            .then(data => {
+                const [isPlaying, song] = data;
+                //console.log(song);
+                const albumImage = song.album.images[2];
+                setTimeout(pollForChanges, POLL_TIME);
+
+                spotifyContainer.innerHTML = `<div id="spotifyControllerContainer" class="card">
+                        <div class="card-content">
+                            <div id="spotifyController" class="media">
+                                <div class="media-left">
+                                    <figure id="spotifyFigure" class="image is-48x48">
+                                        <img id="spotifyCurrentSongImage"
+                                            src="${albumImage.url}"
+                                            alt="${song.album.name}">
+                                    </figure>
+                                    
+                                </div>
+                                <div class="media-content">
+                                    ${premium ? `
+                                    <div id="spotifyPlaybackControlContainer">
+
+                                        <span onclick="skipPrev()"  class="material-icons outlined">
+                                            skip_previous
+                                        </span>
                                         
-                                    </div>
-                                    <div class="media-content">
-
-                                        <div id="spotifyPlaybackControlContainer">
-
-                                            <span onclick="skipPrev()"  class="material-icons outlined">
-                                                skip_previous
-                                            </span>
+                                        <span onclick="togglePlayback()" id="spotifySongStatus" class="material-icons outlined">
+                                            ${isPlaying ? 'pause': 'play_arrow' }
                                             
-                                            <span onclick="togglePlayback()" id="spotifySongStatus" class="material-icons outlined">
-                                                ${isPlaying ? 'pause': 'play_arrow' }
-                                                
-                                            </span>
-                                            <span onclick="skipNext()" class="material-icons outlined">
-                                                skip_next
-                                            </span>
-                                        </div>
-                                        <h5 class="title is-size-6" id="spotifySongTitle">${song.name}</h5>
-                                        <p class="subtitle is-size-7" id="spotifySongArtist">${song.artists[0].name}</p>
+                                        </span>
+                                        <span onclick="skipNext()" class="material-icons outlined">
+                                            skip_next
+                                        </span>
                                     </div>
+                                    ` : ''}
+                                
+                                    <h5 class="title is-size-6" id="spotifySongTitle">${song.name}</h5>
+                                    <p class="subtitle is-size-7" id="spotifySongArtist">${song.artists[0].name}</p>
                                 </div>
                             </div>
                         </div>
-                    `;
-        }).catch(err => document.querySelector("#spotify").innerHTML=`<h3 class="title">${err}</h3>`);
-
+                    </div>
+                `;
+        
+            }).catch(err => document.querySelector("#spotify").innerHTML=`<h3 class="title">${err}</h3>`);
+        });
 }
 // Need lock for race-condition
 function pollForChanges() {
@@ -125,10 +133,18 @@ const skipPrev = async () => {
 }
 
 function updateSpotifyCard(isPlaying, song) {
-    document.querySelector("#spotifySongStatus").textContent = isPlaying ? 'pause': 'play_arrow';
+    if (premium) {
+        document.querySelector("#spotifySongStatus").textContent = isPlaying ? 'pause': 'play_arrow';
+    }
     document.querySelector("#spotifySongTitle").textContent = song.name;
     document.querySelector("#spotifySongArtist").textContent = song.artists[0].name;
     const albumImage = song.album.images[2];
     document.querySelector("#spotifyCurrentSongImage").src = albumImage.url;
     document.querySelector("#spotifyCurrentSongImage").alt = song.album.name;
+}
+
+// Check if not playing anything
+const isSpotifyPremium = async () => {
+    const data = await fetch(`https://api.spotify.com/v1/me`, { headers: spotifyHeader }).then(response => response.json()).catch(err => console.log(err));
+    return data.product === "premium";
 }
