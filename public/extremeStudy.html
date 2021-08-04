@@ -16,33 +16,27 @@
     <script defer src="/__/firebase/8.3.1/firebase-auth.js"></script>
     <script defer src="/__/firebase/8.3.1/firebase-database.js"></script>
     <script defer src="/__/firebase/init.js?useEmulator=true"></script>
-    <script src="js/facedetection/camvas.js" defer></script>
-    <script src="js/facedetection/pico.js" defer></script>
+    <script src="js/faceapi/face-api.min.js" defer></script>
     <script src="js/xtrememode.js" defer></script>
+      <style>
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
+    canvas {
+      position: absolute;
+    }
+  </style>
 </head>
 
 <body>
-
-    <nav class="navbar" role="navigation" aria-label="main navigation">
-
-
-        <div id="navbarBasicExample" class="navbar-menu" style="background-color: black;">
-            <div class="navbar-end">
-                <div class="navbar-item">
-                    <div class="buttons">
-                        <a class="button is-primary" style="background-color: rgb(57, 201, 226);" onclick="normal()">
-                            <strong>Normal Mode</strong>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-				<p><center><input type="button" value="Start real-time face detection" onclick="button_callback()"></center></p>
-		<p><center><canvas width=640 height=480></canvas></center></p>
-
+    <video id="video" width="320" height="240" autoplay muted></video>
 </body>
 
 </html>
