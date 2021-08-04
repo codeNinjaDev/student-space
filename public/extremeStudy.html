@@ -16,72 +16,27 @@
     <script defer src="/__/firebase/8.3.1/firebase-auth.js"></script>
     <script defer src="/__/firebase/8.3.1/firebase-database.js"></script>
     <script defer src="/__/firebase/init.js?useEmulator=true"></script>
-    <script src="js/writeNote.js"></script>
+    <script src="js/faceapi/face-api.min.js" defer></script>
+    <script src="js/xtrememode.js" defer></script>
+      <style>
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    canvas {
+      position: absolute;
+    }
+  </style>
 </head>
 
 <body>
-
-    <nav class="navbar" role="navigation" aria-label="main navigation">
-
-
-        <div id="navbarBasicExample" class="navbar-menu" style="background-color: black;">
-            <div class="navbar-end">
-                <div class="navbar-item">
-                    <div class="buttons">
-                        <a class="button is-primary" style="background-color: rgb(57, 201, 226);" onclick="normal()">
-                            <strong>Normal Mode</strong>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <section class="hero is-fullheight">
-        <div class="hero-body">
-            <div class="container has-text-centered">
-                <div class="columns is-8 is-variable ">
-
-                    <!-- WELCOME HERO -->
-                    <div class="column is-two-thirds has-text-left">
-                        <h1 class="title is-1">What's on your mind?</h1>
-                        <h1 class="title is-3">
-                            “The most beautiful things are those that madness prompts and reason writes."
-                        </h1>
-                        <h1 class="subtitle is-5">
-                            —Andre Gide
-                        </h1>
-                        <a href="viewNotes.html"><button
-                                class="button is-link has-text-weight-medium is-medium is-centered">Click
-                                Here</button></a>
-                        to view your notes.
-                    </div>
-
-                    <!-- NOTE FORM -->
-                    <div class="column is-one-third has-text-left">
-                        <div class="field">
-                            <label class="label">Title</label>
-                            <div class="control">
-                                <input class="input is-medium" type="text" id="noteTitle">
-                            </div>
-                        </div>
-                        <div class="field">
-                            <label class="label">Note</label>
-                            <div class="control">
-                                <textarea class="textarea is-medium" id="noteText"></textarea>
-                            </div>
-                        </div>
-                        <div class="control">
-                            <button class="button is-link is-fullwidth has-text-weight-medium is-medium"
-                                onclick="handleNoteSubmit()">Create Note</button>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </section>
-
+    <video id="video" width="320" height="240" autoplay muted></video>
 </body>
 
 </html>
