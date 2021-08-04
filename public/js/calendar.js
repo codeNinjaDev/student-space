@@ -5,8 +5,10 @@ const getCalendars = async () => {
     const listResponse = await gapi.client.calendar.calendarList.list();
     const calendarList = listResponse.result.items;
     const startingDay = new Date();
+    startingDay.setHours(0, 0, 0);
     startingDay.setDate(startingDay.getDate() - 1);
     const endingDay = new Date();
+    endingDay.setHours(0, 0, 0);
     endingDay.setDate(startingDay.getDate() + 7);
 
     const fullCalendar = {}
