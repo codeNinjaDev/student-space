@@ -1,5 +1,5 @@
 const SPOTIFY_CLIENT_ID = "b213515c9c994acea2b15b7791d5afb4";
-const SPOTIFY_SCOPES = 'user-read-private user-read-email user-modify-playback-state';
+const SPOTIFY_SCOPES = 'user-read-private user-read-email user-modify-playback-state user-read-currently-playing user-read-playback-state';
 const spotifyHeader = {}
 
 function renderSpotifyLogin() {
@@ -16,8 +16,8 @@ function renderSpotifyLogin() {
 		</figure>
 		`;
     spotifyLoginButton.onclick = () => {
-	const authURL = `https://accounts.spotify.com/authorize?response_type=token&client_id=${SPOTIFY_CLIENT_ID}&scope=${SPOTIFY_SCOPES}&redirect_uri=${window.location.href}`;
-	spotifyLoginButton.setAttribute("href", authURL);
+        const authURL = `https://accounts.spotify.com/authorize?response_type=token&client_id=${SPOTIFY_CLIENT_ID}&scope=${SPOTIFY_SCOPES}&redirect_uri=${window.location.href}&show_dialog=true`;
+        spotifyLoginButton.setAttribute("href", authURL);
     }
     spotifyContainer.appendChild(spotifyLoginButton);
 }
@@ -28,14 +28,19 @@ function updateSpotifyHeaders(accessToken) {
 
 function displaySpotifyController() {
     const spotifyContainer = document.querySelector("#spotify");
-    spotifyContainer.innerHTML = `<div id="spotifyControllerContainer" class="card">
+    fetch(`https://api.spotify.com/v1/me/player/currently-playing`, { headers: spotifyHeader })
+        .then(response => response.json())
+        .then(data => data.item)
+        .then(song => {
+            const albumImage = song.album.images[2];
+            spotifyContainer.innerHTML = `<div id="spotifyControllerContainer" class="card">
                             <div class="card-content">
                                 <div id="spotifyController" class="media">
                                     <div class="media-left">
                                         <figure class="image is-48x48">
                                             <img id="spotifyCurrentSongImage"
-                                                src="https://bulma.io/images/placeholders/96x96.png"
-                                                alt="Current album cover">
+                                                src="${albumImage.url}"
+                                                alt="${song.album.name}">
                                         </figure>
                                         
                                     </div>
@@ -52,11 +57,13 @@ function displaySpotifyController() {
                                                 skip_next
                                             </span>
                                         </div>
-                                        <h5 class="title is-size-6" id="spotifySongTitle">Song Title</h5>
-                                        <p class="subtitle is-size-7" id="spotifySongArtist">Song Artist</p>
+                                        <h5 class="title is-size-6" id="spotifySongTitle">${song.name}</h5>
+                                        <p class="subtitle is-size-7" id="spotifySongArtist">${song.artists[0].name}</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-        `;
+                    `;
+        });
+
 }
