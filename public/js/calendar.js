@@ -16,25 +16,38 @@ const getCalendars = async () => {
     endingDay.setDate(startingDay.getDate() + 7);
 
     // Create an object to store events (and their calendars) as the value and the date as the key
-    const fullCalendar = {}
-    for (const calendar of calendarList) {
-        console.log(`%c${calendar.summary}`, `color: ${calendar.backgroundColor}`);
-        await filterEvents(calendar, startingDay, endingDay, fullCalendar);
-    }
-    document.querySelector("#calendarProgress").remove();
+    //console.log(`%c${calendar.summary}`, `color: ${calendar.backgroundColor}`);
+    const calendarViewElement = document.querySelector('#calendarView');
+    calendarViewElement.innerHTML = '<progress id="calendarProgress" class="progress is-large is-info" max="100">15%</progress>';
+    Promise.all(
+        calendarList.map(async calendar => {
+            return filterEvents(calendar, startingDay, endingDay);
+        })
+    ).then((allCalendarTables) => {
+        const fullCalendar = {}
+        for (const individualTable of allCalendarTables) {
+            for (const key in individualTable) {
+                if (!fullCalendar.hasOwnProperty(key)) {
+                    fullCalendar[key] = [];
+                }
+                fullCalendar[key] = fullCalendar[key].concat(individualTable[key]);
+            }
+        }
+        renderCalendars(fullCalendar, startingDay, endingDay);
+        document.querySelector("#calendarProgress").remove();
+    });
 };
 
 // Render calendar to screen
-const renderCalendars = (calendarTable, startingDay, endingDay) => {
+const renderCalendars = (fullCalendarTable, startingDay, endingDay) => {
     var arrayOfWeekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 
     // Get dates between starting day and ending day (inclusive)
     const calendarViewDates = getDates(startingDay, endingDay);
     const calendarViewElement = document.querySelector('#calendarView');
-    calendarViewElement.innerHTML = '<progress id="calendarProgress" class="progress is-large is-info" max="100">15%</progress>';
     calendarViewDates.forEach(date => {
         // Get the events happening that day
-        const eventCalendarPairs = calendarTable[date] || [];
+        const eventCalendarPairs = fullCalendarTable[date] || [];
 
         // Build day element
         const calendarDayElement = document.createElement('div');
@@ -66,8 +79,8 @@ const renderCalendars = (calendarTable, startingDay, endingDay) => {
 };
 
 // Populate JavaScript object with events based on day
-const filterEvents = async (calendar, startingDay, endingDay, calendarTable) => {
-
+const filterEvents = async (calendar, startingDay, endingDay) => {
+    const calendarTable = {};
     const eventListResponse = await gapi.client.calendar.events.list(
         {
             calendarId: calendar.id,
@@ -100,7 +113,7 @@ const filterEvents = async (calendar, startingDay, endingDay, calendarTable) => 
             calendarTable[day].push([event, calendar]);
         }
     }
-    renderCalendars(calendarTable, startingDay, endingDay);
+    return calendarTable;
 
 
 };
