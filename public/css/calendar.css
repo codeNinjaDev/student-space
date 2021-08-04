@@ -1,0 +1,13 @@
+#calendarView {
+    width: clamp(200px, 400px, 300px);
+    border-radius: 2rem;
+}
+
+.day {
+    min-height: 50px;
+    background-color: aliceblue;
+    border: black;
+    border-width: 1px;
+    border-style: dashed;
+    border-radius: 0.25rem;
+}

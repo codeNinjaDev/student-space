@@ -2,8 +2,12 @@
 
 // Get all calendars
 const getCalendars = async () => {
+    // Get a list of all the calendars is user's Google Account
     const listResponse = await gapi.client.calendar.calendarList.list();
     const calendarList = listResponse.result.items;
+
+    // Set Calendar Day range from the day before to day through the next week
+
     const startingDay = new Date();
     startingDay.setHours(0, 0, 0);
     startingDay.setDate(startingDay.getDate() - 1);
@@ -11,24 +15,28 @@ const getCalendars = async () => {
     endingDay.setHours(0, 0, 0);
     endingDay.setDate(startingDay.getDate() + 7);
 
+    // Create an object to store events (and their calendars) as the value and the date as the key
     const fullCalendar = {}
     for (const calendar of calendarList) {
         console.log(`%c${calendar.summary}`, `color: ${calendar.backgroundColor}`);
         await filterEvents(calendar, startingDay, endingDay, fullCalendar);
     }
-    renderCalendars(fullCalendar, startingDay, endingDay);
+    document.querySelector("#calendarProgress").remove();
 };
 
 // Render calendar to screen
 const renderCalendars = (calendarTable, startingDay, endingDay) => {
     var arrayOfWeekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 
+    // Get dates between starting day and ending day (inclusive)
     const calendarViewDates = getDates(startingDay, endingDay);
     const calendarViewElement = document.querySelector('#calendarView');
+    calendarViewElement.innerHTML = '<progress id="calendarProgress" class="progress is-large is-info" max="100">15%</progress>';
     calendarViewDates.forEach(date => {
-    
+        // Get the events happening that day
         const eventCalendarPairs = calendarTable[date] || [];
 
+        // Build day element
         const calendarDayElement = document.createElement('div');
         calendarDayElement.classList.add('day');
         const dayElement = document.createElement('h3');
@@ -43,6 +51,7 @@ const renderCalendars = (calendarTable, startingDay, endingDay) => {
 
         calendarDayElement.appendChild(dayElement);
 
+        // For each event (and calendar) happening during the day, append it to the calendar
         eventCalendarPairs.forEach(([event, calendar]) => {
             const eventElement = document.createElement('h5');
             eventElement.textContent = event.summary;
@@ -52,7 +61,7 @@ const renderCalendars = (calendarTable, startingDay, endingDay) => {
         });
         calendarViewElement.appendChild(calendarDayElement);
     });
-
+    
 
 };
 
@@ -91,6 +100,8 @@ const filterEvents = async (calendar, startingDay, endingDay, calendarTable) => 
             calendarTable[day].push([event, calendar]);
         }
     }
+    renderCalendars(calendarTable, startingDay, endingDay);
+
 
 };
 
