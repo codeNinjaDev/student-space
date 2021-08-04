@@ -50,6 +50,9 @@ input::placeholder {
     margin-left: 1.5rem;
 }
 
-.dayTitle {
-    
+
+.outlined {
+    border-radius: 50%;
+    border-color: black;
+    border-width: 1px;
 }

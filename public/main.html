@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
     <link rel="stylesheet" href="css/cards.css">
     <link rel="stylesheet" href="css/calendar.css">
+    <link rel="stylesheet" href="css/music.css">
     <!-- update the version number as needed -->
     <script defer src="/__/firebase/8.3.1/firebase-app.js"></script>
     <!-- include only the Firebase features as you need -->
@@ -26,6 +27,7 @@
     <script src="js/main.js" defer></script>
     <script src="js/signOut.js" defer></script>
     <script src="js/calendar.js" defer></script>
+    <script src="js/music.js" defer></script>
     <script src="js/todo.js" defer></script>
 
     <!-- Google APIs -->
@@ -52,11 +54,16 @@
 
     <div class="container">
         <div class="section">
-            <div class="columns">
-                <div class="column has-text-centered">
+            <div class="columns is-centered">
+                <div class="column is-narrow has-text-centered">
                     <h1 class="title">Get Stuff Done.</h1><br>
+                    <div id="spotify">
+
+                    </div>
+
                 </div>
             </div>
+
             <div id="app" class="columns is-centered">
                 <div class="column is-narrow">
                     <div class="box has-text-left" style="background-color: rgb(146, 202, 255);">
@@ -65,7 +72,8 @@
                             <div class="control">
                                 <input id="toDo" class="input" placeholder="Add to your list">
                             </div>
-                            <button onclick="submitToDo()" class="button is-info is-rounded" style="margin-left: 60%;">Add</button>        
+                            <button onclick="submitToDo()" class="button is-info is-rounded"
+                                style="margin-left: 60%;">Add</button>
                         </div>
                         <section id="addList">
                         </section>
