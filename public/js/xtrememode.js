@@ -52,9 +52,6 @@ function startVideo() {
     { video: true }
   ).then(function(stream) {
     video.srcObject = stream;
-    if ('pictureInPictureEnabled' in document) {
-        video.requestPictureInPicture();
-    }
 }).catch(function(err) {
 	console.log(err);
 });
