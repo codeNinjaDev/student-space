@@ -3,4 +3,8 @@ canvas, video {
     border-radius: 1rem;
     top: 6rem;
     left: 2rem;
+    z-index: 10;
+}
+canvas {
+    z-index: 11;
 }
