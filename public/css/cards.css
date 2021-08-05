@@ -1,33 +1,76 @@
 :root {
     --primary-color: rgb(119, 151, 255); /*Background*/
-    --secondary-color: rgb(228, 228, 228);
+    --primary-color2: rgb(119, 151, 255);
+    --secondary-color: rgb(220 218 218);
+    --third-color: rgb(146, 202, 255);
     --font-color: black;
     --bg-color: #fff;
     --heading-color: #292922;
+    --opposite-color: #363636;
+    --opposite-font: white;
 }
 
 [data-theme="dark"] {
-    --primary-color: rgb(173, 70, 173); /*Background*/
-    --secondary-color: black;
+    --primary-color: rgb(184, 99, 184); /*Background*/
+    --primary-color2: rgb(184, 99, 184);
+    --secondary-color: #313131;
+    --third-color: rgb(240, 163, 240);
     --font-color: white;
     --bg-color: #161625;
     --heading-color: #818cab;
+    --opposite-color: #f0f0ff;
+    --opposite-font: black;
+
 }
 
 body{
     background-color: var(--primary-color);
 }
 
+.opposite-scheme {
+    background-color: var(--opposite-color);
+
+}
+
+#body2{
+    background-color: var(--primary-color2);
+}
+.background {
+    background-color: var(--primary-color2);
+}
 #message-box{
     background-color: var(--secondary-color);
+    border-radius: 1rem;
+}
+
+#profilePicture {
+    margin-bottom: 0.5rem;
 }
 
 #font{
     color: var(--font-color);
 }
 
+.font {
+    color: var(--font-color);
+    background-color: var(--secondary-color);
+}
+
+.just-font {
+    color: var(--font-color);
+}
+
+#to-doBox{
+    background-color: var(--third-color);
+}
+
 input::placeholder {
   color: antiquewhite;
+}
+
+.font::placeholder {
+    color: var(--font-color);
+    opacity: 0.5;
 }
 
 .navbar {
@@ -35,14 +78,15 @@ input::placeholder {
 }
 
 .level {
-    width: clamp(250px, 600px, 400px);
+    /*width: clamp(250px, 600px, 400px);*/
 }
 
 /* Card start*/
 .card {
   overflow: hidden;
-  width: clamp(250px, 600px, 400px);
+  /*width: clamp(250px, 600px, 400px);*/
   margin: 2rem 0;
+  border-radius: 0.5rem;
   /* color: var(--bg); */
 }
 
@@ -151,4 +195,9 @@ input:checked + .slider:before {
 ::-webkit-scrollbar { 
     display: none; 
 
+}
+
+button.delete {
+    float: right;
+    margin-left: 1rem;
 }

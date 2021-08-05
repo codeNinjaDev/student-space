@@ -11,7 +11,7 @@ function renderSpotifyLogin() {
     spotifyContainer.innerHTML = "";
 
     const spotifyLoginButton = document.createElement("a");
-    spotifyLoginButton.classList.add("button", "is-rounded", "is-dark");
+    spotifyLoginButton.classList.add("button", "is-rounded", "opposite-scheme");
     spotifyLoginButton.setAttribute("id", "spotifySignInButton");
     spotifyLoginButton.innerHTML = `
 		<figure class="image">
@@ -56,29 +56,29 @@ function displaySpotifyController() {
                                     ${premium ? `
                                     <div id="spotifyPlaybackControlContainer">
 
-                                        <span onclick="skipPrev()"  class="material-icons outlined">
+                                        <span onclick="skipPrev()"  class="opposite-font material-icons outlined">
                                             skip_previous
                                         </span>
                                         
-                                        <span onclick="togglePlayback()" id="spotifySongStatus" class="material-icons outlined">
+                                        <span onclick="togglePlayback()" id="spotifySongStatus" class="opposite-font material-icons outlined">
                                             ${isPlaying ? 'pause': 'play_arrow' }
                                             
                                         </span>
-                                        <span onclick="skipNext()" class="material-icons outlined">
+                                        <span onclick="skipNext()" class="opposite-font material-icons outlined">
                                             skip_next
                                         </span>
                                     </div>
                                     ` : ''}
                                 
-                                    <h5 class="title is-size-6" id="spotifySongTitle">${song.name}</h5>
-                                    <p class="subtitle is-size-7" id="spotifySongArtist">${song.artists[0].name}</p>
+                                    <h5 class="opposite-font title is-size-6" id="spotifySongTitle">${song.name}</h5>
+                                    <p class="opposite-font subtitle is-size-7" id="spotifySongArtist">${song.artists[0].name}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 `;
         
-            }).catch(err => document.querySelector("#spotify").innerHTML=`<h3 class="title">${err}</h3>`);
+            }).catch(err => document.querySelector("#spotify").innerHTML=`<h3 class="just-font title">${err}</h3>`);
         });
 }
 // Need lock for race-condition
