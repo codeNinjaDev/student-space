@@ -41,7 +41,7 @@ function displaySpotifyController() {
                 const albumImage = song.album.images[2];
                 setTimeout(pollForChanges, POLL_TIME);
 
-                spotifyContainer.innerHTML = `<div id="spotifyControllerContainer" class="opposite-scheme card">
+                spotifyContainer.innerHTML = `<div id="spotifyControllerContainer" class="card">
                         <div class="card-content">
                             <div id="spotifyController" class="media">
                                 <div class="media-left">
@@ -78,7 +78,7 @@ function displaySpotifyController() {
                     </div>
                 `;
         
-            }).catch(err => document.querySelector("#spotify").innerHTML=`<h3 class="title">${err}</h3>`);
+            }).catch(err => document.querySelector("#spotify").innerHTML=`<h3 class="just-font title">${err}</h3>`);
         });
 }
 // Need lock for race-condition

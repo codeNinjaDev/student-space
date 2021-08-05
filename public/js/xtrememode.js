@@ -85,9 +85,9 @@ video.addEventListener('play', () => {
     console.log(count);
 
     if (count > allowedSeconds * 1000) {
-        alert("GET BACK TO WORK");
         audio.src = "https://www.myinstants.com/media/sounds/fbi-open-up-sfx_oNGglvo.mp3"
-        audio.play();
+        await audio.play();
+        alert("GET BACK TO WORK");
         count = 0;
     }
 
