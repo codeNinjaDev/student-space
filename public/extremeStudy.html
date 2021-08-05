@@ -17,27 +17,49 @@
     <script defer src="/__/firebase/8.3.1/firebase-auth.js"></script>
     <script defer src="/__/firebase/8.3.1/firebase-database.js"></script>
     <script defer src="/__/firebase/init.js?useEmulator=true"></script>
-
     <script src="js/faceapi/face-api.min.js" defer></script>
     <script src="js/xtrememode.js" defer></script>
-        <script async defer src="https://apis.google.com/js/api.js"></script>
-    
-      <style>
-    body {
-      margin: 0;
-      padding: 0;
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-
-  </style>
+    <script async defer src="https://apis.google.com/js/api.js"></script>
+    <script src="js/theme.js" defer></script>
 </head>
 
+
+
 <body>
+
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+
+
+        <div id="navbarBasicExample" class="navbar-menu" style="background-color: black;">
+            <div class="is-centered theme-switch-wrapper" style="align-content: left; margin-top: 10px; margin-left: 20px;">
+                    <strong style="color: white;">Enable Dark Mode</strong>
+                    <label class="switch theme-switch" for="checkbox">
+                        <input type="checkbox" id="checkbox">
+                        <span class="slider round"></span>
+                    </label>
+            </div>
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="buttons">
+                        <a class="button is-primary" style="background-color: rgb(51, 193, 218);" href="main.html">
+                            <strong>Normal Mode</strong>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero is-fullheight">
+        <div class="hero-body">
+            <div class="container has-text-centered">
+                <div class="columns is-8 is-variable ">
+
+
+                </div>
+            </div>
+        </div>
+    </section>
     <video id="video" width="200" height="150" autoplay muted></video>
 </body>
 

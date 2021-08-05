@@ -1,14 +1,18 @@
 :root {
     --primary-color: rgb(119, 151, 255); /*Background*/
-    --secondary-color: rgb(228, 228, 228);
+    --primary-color2: rgb(119, 151, 255);
+    --secondary-color: rgb(245, 245, 245);
+    --third-color: rgb(146, 202, 255);
     --font-color: black;
     --bg-color: #fff;
     --heading-color: #292922;
 }
 
 [data-theme="dark"] {
-    --primary-color: rgb(173, 70, 173); /*Background*/
+    --primary-color: rgb(184, 99, 184); /*Background*/
+    --primary-color2: rgb(184, 99, 184);
     --secondary-color: black;
+    --third-color: rgb(240, 163, 240);
     --font-color: white;
     --bg-color: #161625;
     --heading-color: #818cab;
@@ -18,12 +22,20 @@ body{
     background-color: var(--primary-color);
 }
 
+#body2{
+    background-color: var(--primary-color2);
+}
+
 #message-box{
     background-color: var(--secondary-color);
 }
 
 #font{
     color: var(--font-color);
+}
+
+#to-doBox{
+    background-color: var(--third-color);
 }
 
 input::placeholder {
