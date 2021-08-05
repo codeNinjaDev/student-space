@@ -1,0 +1,6 @@
+canvas, video {
+    position: absolute;
+    border-radius: 1rem;
+    top: 6rem;
+    left: 2rem;
+}

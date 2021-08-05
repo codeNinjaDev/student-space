@@ -13,7 +13,7 @@ var SCOPES = "https://www.googleapis.com/auth/calendar.readonly";
  *  On load, called to load the auth2 library and API client library.
  */
 
-const video = document.getElementById('video')
+const video = document.getElementById('video');
 
 let count = 0;
 const allowedSeconds = 5;
@@ -35,6 +35,7 @@ window.onload = (event) => {
             gapi.load('client:auth2', initClient);
             console.log('Logged in as: ' + user.displayName);
             googleUserId = user.uid;
+
         } else {
             // If not logged in, navigate back to login page.
             window.location = 'index.html';
@@ -50,7 +51,10 @@ function startVideo() {
   navigator.mediaDevices.getUserMedia(
     { video: true }
   ).then(function(stream) {
-	video.srcObject = stream;
+    video.srcObject = stream;
+    if ('pictureInPictureEnabled' in document) {
+        video.requestPictureInPicture();
+    }
 }).catch(function(err) {
 	console.log(err);
 });
@@ -60,7 +64,10 @@ video.addEventListener('play', () => {
   const canvas = faceapi.createCanvasFromMedia(video)
   document.body.append(canvas)
   const displaySize = { width: video.width, height: video.height }
-  faceapi.matchDimensions(canvas, displaySize)
+  faceapi.matchDimensions(canvas, displaySize);
+
+  dragElement(canvas, video);
+
   setInterval(async () => {
     detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions());
 
@@ -81,3 +88,45 @@ video.addEventListener('play', () => {
     faceapi.draw.drawDetections(canvas, resizedDetections)
   }, refreshRate)
 })
+
+
+
+
+function dragElement(elmnt, secondaryElement) {
+  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+
+  elmnt.onmousedown = dragMouseDown;
+
+  function dragMouseDown(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // get the mouse cursor position at startup:
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    document.onmouseup = closeDragElement;
+    // call a function whenever the cursor moves:
+    document.onmousemove = elementDrag;
+  }
+
+  function elementDrag(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // calculate the new cursor position:
+    pos1 = pos3 - e.clientX;
+    pos2 = pos4 - e.clientY;
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    // set the element's new position:
+    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+
+    secondaryElement.style.top = (elmnt.offsetTop - pos2) + "px";
+    secondaryElement.style.left = (elmnt.offsetLeft - pos1) + "px";
+  }
+
+  function closeDragElement() {
+    // stop moving when mouse button is released:
+    document.onmouseup = null;
+    document.onmousemove = null;
+  }
+}
