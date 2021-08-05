@@ -36,8 +36,7 @@
 <body>
 
     <nav class="navbar" role="navigation" aria-label="main navigation" style="background-color: black;">
-        <div class="is-centered theme-switch-wrapper"
-            style="align-content: left; margin-top: 10px; margin-left: 20px;">
+        <div class="is-centered theme-switch-wrapper" style="align-content: left; margin-top: 10px; margin-left: 20px;">
             <strong style="color: white;">Enable Dark Mode</strong>
             <label class="switch theme-switch" for="checkbox">
                 <input type="checkbox" id="checkbox">
@@ -77,8 +76,18 @@
         <video id="video" width="200" height="150" autoplay muted></video>
         <audio hidden>
 
-    </audio>
+        </audio>
     </section>
+
+    <div class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Please, get back to work</p>
+                <button id="closeAlert" class="delete" aria-label="close"></button>
+            </header>
+        </div>
+    </div>
 </body>
 
 </html>
