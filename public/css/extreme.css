@@ -1,0 +1,23 @@
+canvas, video {
+    position: absolute;
+    border-radius: 1rem;
+    bottom: 6rem;
+    right: 2rem;
+    z-index: 10;
+}
+canvas {
+    z-index: 11;
+}
+html, body {
+    height: 100vh;
+}
+
+#titleContainer {
+    display: flex;
+    align-items: flex-end;
+}
+
+#titleContainer  button {
+    margin-left: 1rem;
+}
+

@@ -29,6 +29,7 @@
     <script src="js/calendar.js" defer></script>
     <script src="js/music.js" defer></script>
     <script src="js/todo.js" defer></script>
+    <script src="js/theme.js" defer></script>
 
     <!-- Google APIs -->
     <script async defer src="https://apis.google.com/js/api.js">
@@ -39,11 +40,11 @@
 
     <nav class="navbar" role="navigation" aria-label="main navigation" style="background-color: black;">
         <div class="is-centered theme-switch-wrapper" style="align-content: left; margin-top: 10px; margin-left: 20px;">
-                    <strong style="color: white;">Enable Dark Mode</strong>
-                    <label class="switch theme-switch" for="checkbox">
-                        <input type="checkbox" id="checkbox">
-                        <span class="slider round"></span>
-                    </label>
+            <strong style="color: white;">Enable Dark Mode</strong>
+            <label class="switch theme-switch" for="checkbox">
+                <input type="checkbox" id="checkbox">
+                <span class="slider round"></span>
+            </label>
         </div>
         <div class="navbar-end">
             <div class="navbar-item">
@@ -62,61 +63,60 @@
         </div>
     </nav>
 
-    <div class="container">
-        <div class="section">
+    <div class="section">
 
-            <div id="message-box" class="columns is-centered">
-                <div class="column is-narrow has-text-centered">
-                    <h1 class="title">Get Stuff Done.</h1><br>
-                    <div id="spotify">
+        <div id="message-box" class="columns is-centered">
+            <div class="column is-narrow has-text-centered">
+                <h1 class="font title">Get Stuff Done.</h1><br>
+                <div id="spotify">
 
+                </div>
+            </div>
+        </div>
+        <div id="app" class="columns is-centered">
+
+            <div class="column is-narrow">
+                <div class="box has-text-left" id="to-doBox">
+                <label class="label" style="text-align: center;">To-Do</label>
+                    <div class="field has-addons has-addons-fullwidth">
+                        <div class="control">
+                            <input id="toDo" class="input" placeholder="Add to your list">
+                        </div>
+                        <div class="control">
+                            <button onclick="submitToDo()" class="button is-info is-fullwidth">Add</button>
+                        </div>
                     </div>
+                    <section id="addList">
+                    </section>
                 </div>
             </div>
 
-            <div id="app" class="columns is-centered">
-                <div class="column is-narrow">
-                    <div class="box has-text-left" style="background-color: rgb(146, 202, 255);">
-                        <div class="field">
-                            <label class="label" style="text-align: center;">To-Do</label>
-                            <div class="control">
-                                <input id="toDo" class="input" placeholder="Add to your list">
-                            </div>
-                            <button onclick="submitToDo()" class="button is-info is-rounded"
-                                style="margin-left: 60%;">Add</button>
-                        </div>
-                        <section id="addList">
-                        </section>
+            <div class="column">
+                <!-- FAB container -->
+                <section class="level is-centered">
+                    <!-- Right side -->
+                    <div class="level-left">
+                        <label class="label" id="font">Notes</label>
                     </div>
-                </div>
-
-                <div class="column is-narrow">
-                    <!-- FAB container -->
-                    <section class="level is-centered">
-                        <!-- Right side -->
-                        <div class="level-left">
-                            <label class="label" id="font">Notes</label>
-                        </div>
-                        <div class="level-right">
-                            <button class="level-item mdc-fab is-primary" aria-label="Add" onclick="createNote()">
-                                <div class="mdc-fab__ripple"></div>
-                                <span class="mdc-fab__icon material-icons">add</span>
-                            </button>
-                        </div>
-                    </section>
-                    <input id="note-search" class="input" placeholder="Search By Title">
-                    <section id="listView">
-                    </section>
-                </div>
-                <div class="column is-narrow">
-                    <section id="calendarView">
-                    </section>
-                </div>
-
-                <!-- List view -->
-
-
+                    <div class="level-right">
+                        <button class="level-item mdc-fab is-primary" aria-label="Add" onclick="createNote()">
+                            <div class="mdc-fab__ripple"></div>
+                            <span class="mdc-fab__icon material-icons">add</span>
+                        </button>
+                    </div>
+                </section>
+                <input id="note-search" class="input" placeholder="Search by title">
+                <section id="listView">
+                </section>
             </div>
+            <div class="column is-narrow">
+                <section id="calendarView">
+                </section>
+            </div>
+
+            <!-- List view -->
+
+
             <div id="editNoteModal" class="modal">
                 <div class="modal-background"></div>
                 <div class="modal-card">
@@ -125,7 +125,7 @@
                         <p class="is-subtitle">Title</p>
                         <input class="input is-normal" id="editTitleInput" type="text">
                         <p class="is-subtitle">Text</p>
-                        <input class="input is-normal" id="editTextInput" type="text">
+                        <textarea class="textarea is-normal" id="editTextInput"></textarea>
                     </section>
                     <footer class="modal-card-foot">
                         <button class="button is-success" onclick="saveEditedNote()">Save changes</button>

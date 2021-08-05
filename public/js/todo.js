@@ -22,9 +22,9 @@ const renderToDoDataAsHtml = (data) => {
 };
 
 const submitToDo = () =>{
-    const list = document.querySelector(`#toDo`).value;
+    const list = document.querySelector(`#toDo`);
     firebase.database().ref(`users/${googleUserId2}/To-Do`).push({
-    Task: list,
+    Task: list.value,
     Time: Date.now(),
     completed: false
     })
@@ -32,6 +32,7 @@ const submitToDo = () =>{
         list.value = "";
   });
 }
+
 
 const createToDo = (toDo, toDoItemId) =>{
     const toDoElement = document.createElement("div");
@@ -45,12 +46,12 @@ const createToDo = (toDo, toDoItemId) =>{
 
 
     const todoText = document.createElement("span");
-    todoText.textContent = toDo.Task;
+    todoText.textContent = "  " + toDo.Task;
     checkboxLabel.appendChild(newInput);
     checkboxLabel.appendChild(todoText);
     const deleteButton =  document.createElement("button");
     deleteButton.classList.add("delete","is-medium");
-    checkboxLabel.appendChild(deleteButton);
+    toDoElement.appendChild(deleteButton);
     deleteButton.addEventListener('click',()=>{
         toDoElement.remove();
         firebase.database().ref(`users/${googleUserId2}/To-Do/${toDoItemId}`).remove();
@@ -75,3 +76,4 @@ const createToDo = (toDo, toDoItemId) =>{
     return innerHTML;
     */
 }
+document.querySelector("#toDo").addEventListener("change", submitToDo);
