@@ -68,14 +68,15 @@ input::placeholder {
 }
 
 .level {
-    width: clamp(250px, 600px, 400px);
+    /*width: clamp(250px, 600px, 400px);*/
 }
 
 /* Card start*/
 .card {
   overflow: hidden;
-  width: clamp(250px, 600px, 400px);
+  /*width: clamp(250px, 600px, 400px);*/
   margin: 2rem 0;
+  border-radius: 0.5rem;
   /* color: var(--bg); */
 }
 
@@ -184,4 +185,9 @@ input:checked + .slider:before {
 ::-webkit-scrollbar { 
     display: none; 
 
+}
+
+button.delete {
+    float: right;
+    margin-left: 1rem;
 }

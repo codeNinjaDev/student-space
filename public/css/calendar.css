@@ -6,8 +6,22 @@
 .day {
     min-height: 50px;
     background-color: aliceblue;
-    border: black;
-    border-width: 1px;
-    border-style: dashed;
+    /*border: black;*/
+    /*border-width: 1px;*/
+    /*border-style: dashed;*/
     border-radius: 0.25rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.51rem;
+    box-shadow: 0 .5em 1em -.125em rgba(10,10,10,.1),0 0 0 1px rgba(10,10,10,.02);
+}
+
+.dayTitle {
+    padding: 0.25rem;
+}
+
+.event {
+    padding: 0.25rem;
+    margin-top: 0.125rem;
+    margin-bottom: 0.125rem;
+    border-radius: 0.25rem 0 0 0.25rem;
 }

@@ -57,7 +57,7 @@ const renderCalendars = (fullCalendarTable, startingDay, endingDay) => {
         dayElement.textContent = arrayOfWeekdays[date.getDay()];
 
         if (getTodayDate().toDateString() === date.toDateString()) {
-            dayElement.textContent = "🔵" + dayElement.textContent
+            dayElement.textContent = "🔵 " + dayElement.textContent
         } else {
             console.log(getTodayDate(), date);
         }
@@ -67,6 +67,7 @@ const renderCalendars = (fullCalendarTable, startingDay, endingDay) => {
         // For each event (and calendar) happening during the day, append it to the calendar
         eventCalendarPairs.forEach(([event, calendar]) => {
             const eventElement = document.createElement('h5');
+            eventElement.classList.add("event");
             eventElement.textContent = event.summary;
             eventElement.style.color = calendar.foregroundColor;
             eventElement.style.backgroundColor = calendar.backgroundColor;
