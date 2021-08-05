@@ -14,9 +14,10 @@ var SCOPES = "https://www.googleapis.com/auth/calendar.readonly";
  */
 
 const video = document.getElementById('video');
+const audio = document.querySelector('audio');
 
 let count = 0;
-const allowedSeconds = 5;
+const allowedSeconds = 10;
 const refreshRate = 100;
 
 function initClient() {
@@ -79,11 +80,15 @@ video.addEventListener('play', () => {
         count += refreshRate;
     } else {
         count = 0;
+        
     }
     console.log(count);
 
     if (count > allowedSeconds * 1000) {
         alert("GET BACK TO WORK");
+        audio.src = "https://www.myinstants.com/media/sounds/fbi-open-up-sfx_oNGglvo.mp3"
+        audio.play();
+        count = 0;
     }
 
     //console.log(detections);
