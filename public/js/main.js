@@ -36,15 +36,17 @@ window.onload = (event) => {
             gapi.load('client:auth2', initClient);
             console.log('Logged in as: ' + user.displayName);
             googleUserId = user.uid;
-        const currentURLParams = window.location.hash.replace("#", "?");	
-        const accessToken = new URLSearchParams(currentURLParams).get('access_token');	
-	    if (accessToken) {
-            updateSpotifyHeaders(accessToken);
-            displaySpotifyController();
+            console.log(user.photoURL);
+            document.querySelector("#profilePicture").src = user.photoURL;
+            const currentURLParams = window.location.hash.replace("#", "?");
+            const accessToken = new URLSearchParams(currentURLParams).get('access_token');
+            if (accessToken) {
+                updateSpotifyHeaders(accessToken);
+                displaySpotifyController();
 
-	    } else {
-		    renderSpotifyLogin();
-	    }
+            } else {
+                renderSpotifyLogin();
+            }
 
             getNotes(googleUserId);
             getToDo(googleUserId);
@@ -181,7 +183,7 @@ noteSearchInput.addEventListener("keyup", e => {
     }
 });
 
-const normal = () =>{
+const normal = () => {
     window.location = 'main.html'
 }
 
@@ -195,7 +197,7 @@ function switchTheme(e) {
     else {
         document.documentElement.setAttribute('data-theme', 'light');
         localStorage.setItem('theme', 'light'); //add this
-    }    
+    }
 }
 
 toggleSwitch.addEventListener('change', switchTheme, false);
