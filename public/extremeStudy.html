@@ -16,26 +16,26 @@
     <script defer src="/__/firebase/8.3.1/firebase-auth.js"></script>
     <script defer src="/__/firebase/8.3.1/firebase-database.js"></script>
     <script defer src="/__/firebase/init.js?useEmulator=true"></script>
-    <script src="js/main.js"></script>
+    <script src="js/theme.js" defer></script>
 </head>
 
-<body style="background-color: rgb(134, 162, 255);">
+<body>
 
     <nav class="navbar" role="navigation" aria-label="main navigation">
 
 
-        <div id="navbarBasicExample" class="navbar-menu" style="background-color: red;">
-            <div class="is-centered"style="align-content: left; margin-top: 10px; margin-left: 20px;">
-                    <strong style="color: white;">Light-Mode</strong>
-                    <label class="switch">
-                        <input type="checkbox">
+        <div id="navbarBasicExample" class="navbar-menu" style="background-color: black;">
+            <div class="is-centered theme-switch-wrapper" style="align-content: left; margin-top: 10px; margin-left: 20px;">
+                    <strong style="color: white;">Enable Dark Mode</strong>
+                    <label class="switch theme-switch" for="checkbox">
+                        <input type="checkbox" id="checkbox">
                         <span class="slider round"></span>
                     </label>
             </div>
             <div class="navbar-end">
                 <div class="navbar-item">
                     <div class="buttons">
-                        <a class="button is-primary" style="background-color: rgb(57, 201, 226);" href="main.html">
+                        <a class="button is-primary" style="background-color: rgb(51, 193, 218);" href="main.html">
                             <strong>Normal Mode</strong>
                         </a>
                     </div>
