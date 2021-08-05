@@ -43,6 +43,10 @@ body{
     border-radius: 1rem;
 }
 
+#profilePicture {
+    margin-bottom: 0.5rem;
+}
+
 #font{
     color: var(--font-color);
 }
