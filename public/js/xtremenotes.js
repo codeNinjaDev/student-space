@@ -1,9 +1,15 @@
 const noteBody = document.querySelector("#noteBody");
+const noteTitleElement = document.querySelector('#noteTitle');
 
 noteBody.addEventListener('keyup', function () {
     if (noteBody.scrollHeight > noteBody.clientHeight) {
         noteBody.style.height = noteBody.scrollHeight + "px";
     }
+    localStorage.setItem('currentNoteText', noteBody.value); //add this
+});
+
+noteTitleElement.addEventListener('keyup', function () {
+    localStorage.setItem('currentNoteTitle', noteTitleElement.value); //add this
 });
 
 
@@ -22,5 +28,7 @@ const saveCreatedNote = () => {
         .then(() => {
             noteTitle.value = "";
             noteText.value = "";
+            localStorage.setItem('currentNoteTitle', "");
+            localStorage.setItem('currentNoteText', ""); //add this
         });
 }

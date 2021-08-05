@@ -35,7 +35,14 @@ window.onload = (event) => {
             gapi.load('client:auth2', initClient);
             console.log('Logged in as: ' + user.displayName);
             googleUserId = user.uid;
+            
+            if (localStorage.getItem('currentNoteText') !== null && localStorage.getItem('currentNoteText') !== "") {
+                document.querySelector('#noteBody').value = localStorage.getItem('currentNoteText');
+            }
 
+            if (localStorage.getItem('currentNoteTitle') !== null && localStorage.getItem('currentNoteTitle') !== "") {
+                document.querySelector('#noteTitle').value = localStorage.getItem('currentNoteTitle');
+            }
         } else {
             // If not logged in, navigate back to login page.
             window.location = 'index.html';
