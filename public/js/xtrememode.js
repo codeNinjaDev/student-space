@@ -22,7 +22,7 @@ document.querySelector("#closeAlert").addEventListener('click', (e) => {
 });
 
 let count = 0;
-const allowedSeconds = 10;
+const allowedSeconds = 5;
 const refreshRate = 100;
 
 function initClient() {
