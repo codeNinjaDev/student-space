@@ -76,4 +76,9 @@ const createToDo = (toDo, toDoItemId) =>{
     return innerHTML;
     */
 }
-document.querySelector("#toDo").addEventListener("change", submitToDo);
+document.querySelector("#toDo").addEventListener("keyup", () => {
+
+    if (event.code === 'Enter') {
+        submitToDo();
+    }
+});
